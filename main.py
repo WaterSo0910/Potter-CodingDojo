@@ -15,11 +15,15 @@ Discount = {
 
 
 def price(books: list):
-    total = Counter(books).total()
-    uniNum = len(Counter(books).keys())
-    return EUR_ONE_BOOK * total * (1-Discount[uniNum])
+    result = 0
+    while(len(books) != 0):
+        uniNum = len(Counter(books).keys())
+        for k in Counter(books).keys():
+            books.remove(k)
+        result += EUR_ONE_BOOK * (uniNum * (1-Discount[uniNum]))
+    return round(result, 2)
 
 
 if __name__ == "__main__":
-    books = [0, 1, 2, 3, 3]
-    price(books)
+    books = [0, 0, 1, 1]
+    print(price(books))
