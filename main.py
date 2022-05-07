@@ -18,12 +18,24 @@ def price(books: list):
     result = 0
     while(len(books) != 0):
         uniNum = len(Counter(books).keys())
-        for k in Counter(books).keys():
-            books.remove(k)
+        if len(books) < 10 and uniNum == 5:
+            c = 0
+            for k in Counter(books).keys():
+                if c == 0:
+                    uniNum -= 1
+                    c += 1
+                    continue
+                c += 1
+                books.remove(Counter(books).most_common()[0][0])
+        else:
+            for k in Counter(books).keys():
+                books.remove(Counter(books).most_common()[0][0])
+        print(uniNum, (1-Discount[uniNum]))
         result += EUR_ONE_BOOK * (uniNum * (1-Discount[uniNum]))
     return round(result, 2)
 
 
 if __name__ == "__main__":
-    books = [0, 0, 1, 1]
+    books = [0, 0, 1, 1, 2, 2, 3, 4]
     print(price(books))
+# 2 * (8 * 4 * 0.8), price(
